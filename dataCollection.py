@@ -23,7 +23,7 @@ while len(asteroidsData) < target and url:
     print(f"Fetching data from: {url}")
     try:
         response = requests.get(url)
-        response.status()
+        response.raise_for_status()
         data = response.json()
     except requests.exceptions.RequestException as e:
         print(f"Error fetching data: {e}")
@@ -72,7 +72,7 @@ while len(asteroidsData) < target and url:
                 'miss_distance_lunar': float(miss_distance_lunar) if miss_distance_lunar else None,
                 'orbiting_body': orbiting_body
             }
-            asteroidsData.append(asteroid_info)
+            asteroidsData.append(asteroidInfo)
             counter += 1
 
             if len(asteroidsData) >= target:
@@ -89,7 +89,7 @@ print(f"\nCollected {len(asteroidsData)} asteroids (target was {target}).")
 
 # Print the first 5 collected asteroids for verification
 print("\nFirst 5 collected asteroids:")
-for i, ast in enumerate(asteroids_data[:5]): #to get all data - [:]
+for i, ast in enumerate(asteroidsData[:5]): #to get all data - [:]
     print(f"--- Asteroid {ast['s.no']} ---")
     for key, value in ast.items():
         print(f"{key}: {value}")
